@@ -30,9 +30,14 @@
               }
             ],
             "styles": [
+                "./node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.main.min.css",
+  "./node_modules/@gouvfr/dsfr/dist/utility/utility.main.min.css",
               "src/styles.scss"
             ]
           },
+         "scripts": [
+  "./node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js"
+],
           "configurations": {
             "production": {
               "budgets": [
@@ -94,5 +99,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

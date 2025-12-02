@@ -1,0 +1,7 @@
+
+<dsfr-form-select [label]="'Filtrer par couleur'" [options]="optionsColor()" (selectChange)="selectColorFilter($event)"></dsfr-form-select>
+<ul>
+    @for (fruit of listFruitsFiltered(); track $index) {
+        <li>{{fruit.name}}</li>
+    }
+</ul>
