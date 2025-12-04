@@ -1,3 +1,9 @@
+<form [formGroup] = 'fruitForm' (ngSubmit)="onSubmit()">
+<input type="text" placeholder="nouveau fruit" formControlName="name"/>
+<input type="text" placeholder="nouveau fruit" formControlName="color"/>
+<input type="number" placeholder="stock" formControlName="stock"/>
+<button type="submit" [disabled]="fruitForm.invalid">Ajouter</button>
+</form>
 
 <dsfr-form-select [label]="'Filtrer par couleur'" [options]="optionsColor()" (selectChange)="selectColorFilter($event)"></dsfr-form-select>
 <ul>

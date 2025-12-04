@@ -31,13 +31,8 @@ async getFruits(): Promise<IFruit[] | null> {
   return db.get('fruits', 'list');
 }
 
-  async addFruits(fruit: IFruit): Promise<void> {
-      const db = await this.dbPromise;
-      const fruits = await this.getFruits();
-      if(!fruits) return;
-      const newFruits = [...fruits,fruit];
-      await this.saveFruits(newFruits)
-    
-
+   async addFruits(fruit: IFruit): Promise<void> {
+    const fruits = await this.getFruits() || [];
+    await this.saveFruits([...fruits, fruit]);
   }
 }
