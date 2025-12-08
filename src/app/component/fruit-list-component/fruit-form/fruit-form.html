@@ -1,0 +1,14 @@
+<form class="flex flex-col" [formGroup] = 'fruitForm' (ngSubmit)="onSubmit()">
+<input type="text" placeholder="nouveau fruit" formControlName="name"/>
+<input type="text" placeholder="nouveau fruit" formControlName="color"/>
+<input type="number" placeholder="stock" formControlName="stock"/>
+@if(isApple()){
+<select formControlName="variete">
+    <option value = "PinkLady">Pink Lady</option>
+    <option value = "GrannySmith">Granny Smith</option>
+</select>
+}
+
+<button type="submit" [disabled]="fruitForm.invalid">Ajouter</button>
+</form>
+

@@ -1,13 +1,14 @@
-<form [formGroup] = 'fruitForm' (ngSubmit)="onSubmit()">
-<input type="text" placeholder="nouveau fruit" formControlName="name"/>
-<input type="text" placeholder="nouveau fruit" formControlName="color"/>
-<input type="number" placeholder="stock" formControlName="stock"/>
-<button type="submit" [disabled]="fruitForm.invalid">Ajouter</button>
-</form>
+FORM
+
+<app-fruit-form/>
+
+LIST
 
 <dsfr-form-select [label]="'Filtrer par couleur'" [options]="optionsColor()" (selectChange)="selectColorFilter($event)"></dsfr-form-select>
 <ul>
     @for (fruit of listFruitsFiltered(); track $index) {
-        <li>{{fruit.name}}</li>
+        <li>{{fruit.name}}
+            <button (click)="removeFruit($index)">Supprimer</button>
+        </li>
     }
 </ul>
