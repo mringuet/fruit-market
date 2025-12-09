@@ -1,0 +1,62 @@
+<div class="container">
+    <form [formGroup]="promoForm" class="flex flex-col gap-2">
+
+        <mat-form-field>
+            <mat-label>Nom du fruit concerné</mat-label>
+            <mat-select formControlName="fruitName">
+                @for (fruit of fruits; track fruit) {
+                <mat-option [value]="fruit">{{fruit}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Pourcentage de réduction</mat-label>
+            <input matInput type="number" formControlName="discount">
+            @if(controls['discount']?.hasError('min')){
+            <p class="error">
+                Vous êtes en dessous du minimum requis
+            </p>
+            }
+
+            @if(controls['discount']?.hasError('max')){
+            <p class="error">
+                Vous avez dépassé le max
+            </p>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+
+            <mat-label>date de début - date de fin</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" formControlName="startDate">
+                <input matEndDate placeholder="End date" formControlName="endDate">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+
+        </mat-form-field>
+
+
+        <p><mat-slide-toggle formControlName="withConditions">Conditions spéciales</mat-slide-toggle></p>
+
+        @if(controls['withConditions']?.value){
+        <mat-form-field>
+            <mat-label>conditions</mat-label>
+            <input matInput formControlName="conditions">
+        </mat-form-field>
+        }
+
+
+        @if(promoForm.hasError('invalidDateRange')){
+        <p class="error">
+            La date de fin doit être supérieure à la date de début.
+        </p>
+        }
+
+
+    </form>
+</div>

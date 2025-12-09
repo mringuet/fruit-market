@@ -1,0 +1,16 @@
+.flex{
+    display: flex;
+}
+
+.flex-col{
+    flex-direction: column;
+}
+
+.gap-2{
+    gap: 2rem;
+}
+
+.container{
+    max-width: 500px;
+    margin: auto;
+}
