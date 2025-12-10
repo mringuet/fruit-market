@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +19,13 @@ export class FruitPromoFormComponent {
   private fb = inject(FormBuilder);
   fruits: string[] = ["banane", "fraise", "pomme"];
 
+  prixInitial = input<number>(0); 
+  prixFinal = computed(() => {
+    const prix = this.prixInitial() ?? 0;
+    const discount = this.controls['discount']?.value ?? 0;
+
+    return prix * (1 - discount / 100);
+  });
 
 
   promoForm = this.fb.group({

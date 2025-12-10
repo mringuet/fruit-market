@@ -1,0 +1,6 @@
+
+<form [formGroup]="fruitForm" (submit)="save()">
+    <input type="text" formControlName="name" >
+    <input type="number" formControlName="qty" >
+<button type="submit" [disabled]="!isValid()">Enregistrer</button>
+</form>

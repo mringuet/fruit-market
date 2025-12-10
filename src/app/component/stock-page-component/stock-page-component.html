@@ -1,0 +1,2 @@
+<app-fruit-list-component [fruitsList]="fruits()" (selectedFruit)="selectFruit($event)"/>
+<app-fruit-editor-component [fruit] = "selectedFruit()" (fruitSave)="saveFruit($event)"/>
