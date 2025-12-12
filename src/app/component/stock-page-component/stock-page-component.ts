@@ -1,11 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FruitListComponent } from "./fruit-list-component/fruit-list-component";
 import { FruitEditorComponent } from "./fruit-editor-component/fruit-editor-component";
+import { FruitStorageService } from '../../services/fruit-storage.service';
+import { IFruit } from '../fruit-list-component/fruit-list-component';
 
-export interface IFruit {
-  name: string;
-  qty: number;
-}
 
 @Component({
   selector: 'app-stock-page-component',
@@ -15,30 +13,31 @@ export interface IFruit {
 })
 export class StockPageComponent {
 
-  fruits = signal<IFruit[]>([
-    {
-      name: 'pomme',
-      qty: 1
-    },
-    {
-      name: 'orange',
-      qty: 2
-    },
-    {
-      name: 'clementine',
-      qty: 3
-    },
+  fruitStorageService = inject(FruitStorageService);
+  fruits = this.fruitStorageService.listFruits;
 
-  ])
 
-  selectedFruit = signal<IFruit | null>(null);
+
+  fruitSelected = signal<IFruit | null>(null);
+  indexSelect = signal<number | null>(null);
 
   selectFruit(fruit:IFruit){
-    this.selectedFruit.set(fruit);
+    this.fruitSelected.set(fruit);
   }
 
   saveFruit(fruit:IFruit){
-    console.log('fruit', fruit);
+    console.log("index", this.indexSelect())
+    if(this.indexSelect() !== null){
+      console.log('UPDATE')
+      this.fruitStorageService.updateFruit(this.indexSelect() as number, fruit);
+    }else{
+    this.fruitStorageService.addFruits(fruit);
+
+    }
+  }
+
+  remove(index:number){
+    this.fruitStorageService.removeFruit(index);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { IFruit } from '../stock-page-component';
+import { IFruit } from '../../fruit-list-component/fruit-list-component';
 
 @Component({
   selector: 'app-fruit-list-component',
@@ -10,8 +10,17 @@ import { IFruit } from '../stock-page-component';
 export class FruitListComponent {
   fruitsList = input<IFruit[]>();
   selectedFruit = output<IFruit>();
+  removeFruit = output<number>();
 
-  selectFruit(fruit:IFruit){
+  indexSelected = output<number>();
+
+
+  selectFruit(fruit:IFruit, index:number){
     this.selectedFruit.emit(fruit);
+    this.indexSelected.emit(index);
+  }
+
+  remove(index:number){
+    this.removeFruit.emit(index);
   }
 }

@@ -1,6 +1,8 @@
 
 <form [formGroup]="fruitForm" (submit)="save()">
+    <label>Nom</label>
     <input type="text" formControlName="name" >
-    <input type="number" formControlName="qty" >
+    <label>Quantité</label>
+    <input type="number" formControlName="stock" >
 <button type="submit" [disabled]="!isValid()">Enregistrer</button>
 </form>

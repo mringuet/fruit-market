@@ -11,9 +11,9 @@ export class FruitStorageService {
 
   listFruits = signal<IFruit[]>([
     { name: 'banane', color: 'jaune', stock: 1 },
-    { name: 'fraise', color: 'rouge', stock: 1 },
-    { name: 'clémentine', color: 'orange', stock: 1 },
-    { name: 'pomme', color: 'rouge', stock: 1 },
+    { name: 'fraise', color: 'rouge', stock: 5 },
+    { name: 'clémentine', color: 'orange', stock: 2 },
+    { name: 'pomme', color: 'rouge', stock: 10 },
 
   ]);
 
@@ -25,6 +25,16 @@ export class FruitStorageService {
         }
       }
     });
+    this.initFruits();
+  }
+
+  async initFruits(){
+    const fruits =  await this.getFruits();
+    if(!fruits){
+      await this.saveFruits(this.listFruits());
+    }else{
+      this.listFruits.set(fruits);
+    }
   }
 
   async saveFruits(fruits: IFruit[]): Promise<void> {
@@ -32,6 +42,7 @@ export class FruitStorageService {
     const tx = db.transaction('fruits', 'readwrite');
     await tx.store.put(fruits, 'list'); // clé "list" → valeur = tableau de fruits
     await tx.done;
+    this.listFruits.set(fruits);
   }
 
   async removeFruit(index: number): Promise<void> {
@@ -52,5 +63,12 @@ export class FruitStorageService {
     const fruits = await this.getFruits() || [];
     this.listFruits.update(currentFruits => [...currentFruits, fruit]);
     await this.saveFruits([...fruits, fruit]);
+  }
+
+  async updateFruit(index: number, fruit: IFruit){
+    const fruits = await this.getFruits() || [];
+    const updatedFruit = [...fruits];
+    updatedFruit[index] = fruit;
+    await this.saveFruits(updatedFruit);
   }
 }

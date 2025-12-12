@@ -1,5 +1,8 @@
 <ul>
 @for (fruit of fruitsList(); track $index) {
-    <li>{{fruit.name}}</li><button (click)="selectFruit(fruit)">Sélectionner</button>
+    <li>{{fruit.name}}</li>
+    <li>{{fruit.stock}}</li>
+    <button (click)="selectFruit(fruit, $index)">Sélectionner</button>
+    <button (click)="remove($index)">Supprimer</button>
 }
 </ul>
